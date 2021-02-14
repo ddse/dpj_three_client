@@ -1,0 +1,236 @@
+.tablewrapper table.scrolling,
+.tablewrapper table.scrolling caption,
+.tablewrapper table.scrolling tbody,
+.tablewrapper table.scrolling tfoot,
+.tablewrapper table.scrolling thead,
+.tablewrapper table.scrolling tr,
+.tablewrapper table.scrolling th,
+.tablewrapper table.scrolling td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    /* vertical-align: baseline; */
+    background: transparent;
+    display: inline-block;
+}
+
+.tablewrapper table.scrolling,
+.tablewrapper table.scrolling caption,
+.tablewrapper table.scrolling tbody,
+.tablewrapper table.scrolling tfoot,
+.tablewrapper table.scrolling thead,
+.tablewrapper table.scrolling tr {
+    display: block;
+    width: 100%;
+}
+
+@-moz-document url-prefix() {
+    .tablewrapper table.scrolling,
+    .tablewrapper table.scrolling caption,
+    .tablewrapper table.scrolling tbody,
+    .tablewrapper table.scrolling tfoot,
+    .tablewrapper table.scrolling thead,
+    .tablewrapper table.scrolling tr,
+    .tablewrapper table.scrolling th,
+    .tablewrapper table.scrolling td {
+        display: block;
+    }
+    .tablewrapper table.scrolling,
+    .tablewrapper table.scrolling caption,
+    .tablewrapper table.scrolling tbody,
+    .tablewrapper table.scrolling tfoot,
+    .tablewrapper table.scrolling thead,
+    .tablewrapper table.scrolling tr {
+        display: inline-table;
+    }
+}
+
+.tablewrapper table.scrolling tr {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+}
+
+.dropdown-menu {
+    display: block;
+    z-index: 99999;
+    left: initial;
+    right: 0;
+}
+
+.tablewrapper table.table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    background-color: rgb(135, 206, 250);
+    border-left: 1px solid;
+}
+
+.tablewrapper.tablewrapperscroll table.table {
+    overflow: hidden;
+}
+
+.tablewrapper table.scrolling thead,
+.tablewrapper table.scrolling tfoot {
+    display: inline-block;
+    overflow: hidden;
+    scrollbar-width: none;
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
+}
+
+.tablewrapper table.scrolling tbody {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    /* max-height: 85px; */
+}
+
+.tablewrapper table.scrolling.scrolly tbody,
+.tablewrapper table.scrolling.scrolly thead.scrollsync,
+.tablewrapper table.scrolling.scrolly tfoot.scrollsync {
+    scrollbar-width: none;
+}
+
+.tablewrapper table.scrolling.scrollx tbody {
+    /* overflow-x: scroll; */
+}
+
+.tablewrapper table.scrolling.scrolly thead.scrollsync::-webkit-scrollbar {
+    /*display: block;*/
+    /*background-color: var(--dead-area-color);*/
+}
+
+.tablewrapper table.scrolling.scrolly thead.scrollsync::-webkit-scrollbar-track {
+    /* background-color: var(--dead-area-color);*/
+}
+
+.tablewrapper table.scrolling tbody:nth-child(3) {
+    display: none;
+}
+
+.tablewrapper table.scrolling td,
+.tablewrapper table.scrolling th {
+    border: 1px solid #000;
+    overflow: hidden;
+    word-wrap: break-word;
+    font-size: 13px;
+    border-left: none !important;
+    border-bottom: none !important;
+}
+
+.tablewrapper table.scrolling td,
+.tablewrapper table.scrolling th {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tablewrapper table.table td {
+    background-color: #fff;
+}
+
+.tablewrapper table.table th {
+    background-color: rgb(135, 206, 250);
+}
+
+.tablewrapper table.table tr:last-child th {
+    border-bottom: 1px solid;
+}
+
+.tablewrapper table.table tbody {
+    border-bottom: 1px solid;
+}
+
+.tablewrapper table.table td,
+.tablewrapper table.table th {
+    border: 1px solid;
+}
+
+.tablewrapper {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: left;
+}
+
+.tablewrapper>div {
+    display: flex;
+}
+
+.tablewrapper div[class^="table"] table.scrolling.scrolly tbody {
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.tablewrapper div[class^="table"] table.scrolling.scrolly tbody::-webkit-scrollbar {
+    display: none;
+}
+
+.tablewrapper div[class^="table"] table {
+    background-color: inherit;
+    --dead-area-color: inherit;
+}
+
+.tablewrapper div[class^="table"] table.scrolling.scrolly thead.scrollsync {
+    overflow: hidden !important;
+}
+
+.tablewrapper div[class^="table"] {
+    position: relative;
+    z-index: 2;
+}
+
+.tablewrapper div.tableright {
+    right: 0;
+    left: initial;
+}
+
+.tablewrapper div.tableselection {
+    position: relative;
+    z-index: 2;
+}
+
+.tablewrapper div.normal {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.tablewrapper.tablewrapperscroll div.normal {
+    margin-left: -1px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.tablewrapper div.normal table.scrolling.scrolly tbody {
+    /* padding-bottom: 15px; */
+}
+
+.tablewrapper table.scrolling a.btn {
+    line-height: initial;
+    padding: 0;
+}
+
+
+/* 共通ファイル為に　個別ページを設定しない為、以下ソースを移動する*/
+
+
+/* .lstKisoKensyu .tablewrapper div[class^="table"] tbody tr:last-child:after{
+	content:"";
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	background: #ccc;
+} */
+
+.tablewrapper table.table .datanone {
+    justify-content: left;
+    padding-left: 10px;
+    text-align: left;
+}
