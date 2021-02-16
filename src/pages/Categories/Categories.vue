@@ -1,12 +1,11 @@
 <template>
   <section>
     <div class="container-fluid">
-      <button
-        type="button"
-        class="btn btn-info"
-        data-toggle="modal"
-        data-target="#createModal"
-      >
+      <b-button @click="statusPopup = true">
+        <i class="dripicons-plus"></i> {{ $t("file.Add Category") }}
+      </b-button>
+        
+      <button type="button" class="btn btn-info" @click="statusPopup = true">
         <i class="dripicons-plus"></i> {{ $t("file.Add Category") }}</button
       >&nbsp;
       <button
@@ -28,35 +27,35 @@
         Each row is highlighted. You will never lost there. Just
         <code>.table-striped</code> it.
       </p>
-      
+
       <vue-datatable
         :data="list"
-        colHeight="20"
+        colHeight="85"
         :common="listQuery"
         max-row-scroll="5"
+        :paging="true"
       >
-      <table-column
-          label="ID"
-          prop="id"
-          fixed="left"
-          width="250"
-         
-        >
+        <table-column :label="$t('file.Id')" prop="id"> </table-column>
+        <table-column :label="$t('file.Image')" prop="image" width="250">
         </table-column>
-        <table-column
+        <template slot="image" slot-scope="slotPops">
+          <div v-html="slotPops.row[slotPops.column]"></div>
+        </template>
+        <table-column :label="$t('file.category')" prop="name"> </table-column>
+        <!-- <table-column
           label="氏 名"
-          prop="account"
-          fixed="left"
+          prop="image"
           width="250"
           :prefix="{ class: 'account_name' }"
-          :render-cell="
+          :renderCell="
             (self, data) => {
-              return data.row[data.column]['name'];
+              //console.log(data.row);
+              return 'aaa';//data.row[data.column]['name'];
             }
           "
           :tooltip="true"
         >
-        </table-column>
+        </table-column> -->
       </vue-datatable>
       <table class="table table-striped">
         <thead>
@@ -149,16 +148,15 @@
       @close="backProcess"
       :title="$t('file.Add Category')"
       :fit-parent="true"
-      :width="1000"
-      :height="800"
-      :footerflg="false"
+      :width="800"
+      :height="600"
     >
       <h2 slot="header"></h2>
       <div slot="body">
         <p class="italic">
           <small
             >{{
-              trans(
+              $t(
                 "file.The field labels marked with * are required input fields"
               )
             }}.</small
@@ -166,38 +164,38 @@
         </p>
         <div class="row">
           <div class="col-md-6 form-group">
-            <label>{{ trans("file.name") }} *</label>
+            <label>{{ $t("file.name") }} *</label>
             {--{ Form::text('name',null,array('required' => 'required', 'class'
             => 'form-control', 'placeholder' => 'Type category name...')) }--}
           </div>
           <div class="col-md-6 form-group">
-            <label>{{ trans("file.Image") }}</label>
+            <label>{{ $t("file.Image") }}</label>
             <input type="file" name="image" class="form-control" />
           </div>
           <div class="col-md-6 form-group">
-            <label>{{ trans("file.Parent Category") }}</label>
+            <label>{{ $t("file.Parent Category") }}</label>
             {--{Form::select('parent_id', $lims_categories, null, ['class' =>
             'form-control','placeholder' => 'No Parent Category']) }--}
           </div>
         </div>
       </div>
       <div slot="footer">
-        <button class="ui-button ui-corner-all ui-widget modal-default-button">
-          {{ $t("file.submit") }}
-        </button>
-        <button
-          class="ui-button ui-corner-all ui-widget modal-default-button noneEvent"
-          v-on:click="backProcess"
+        <b-button
+          variant="info"
+          id="show-info-message"
+          @click="addInfoNotification"
+          >{{ $t("file.submit") }}
+        </b-button>
+        <b-button variant="dark" v-on:click="backProcess">
+          {{ $t("file.close") }}</b-button
         >
-          {{ $t("file.close") }}
-        </button>
       </div>
     </modal>
   </section>
 </template>
 <script>
 import VueDatatable from "@/components/VueDatatable/VueDatatable";
-import {categoryData} from './mock';
+import { categoryData } from "./mock";
 // import Resource from "@/api/resource";
 // const categoryResource = new Resource("category");
 export default {
@@ -218,19 +216,20 @@ export default {
       },
     };
   },
-  computed: {
-    
-  },
+  computed: {},
   created() {
     this.getList();
   },
   methods: {
     async getList() {
       this.listLoading = true;
-      const { data } = categoryData;//await categoryResource.list(this.listQuery);
+      const { data } = categoryData; //await categoryResource.list(this.listQuery);
       this.list = data.data;
       this.total = data.recordsTotal;
       this.listLoading = false;
+    },
+    backProcess: function () {
+      this.statusPopup = false;
     },
   },
 };

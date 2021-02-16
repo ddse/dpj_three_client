@@ -1,3 +1,92 @@
+.ui-dialog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: .2em;
+    outline: 0;
+    .ui-dialog-titlebar {
+        padding: .4em 1em;
+        position: relative;
+    }
+    .ui-dialog-title {
+        float: left;
+        margin: .1em 0;
+        white-space: nowrap;
+        width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .ui-dialog-titlebar-close {
+        position: absolute;
+        right: .3em;
+        top: 50%;
+        width: 20px;
+        margin: -10px 0 0 0;
+        padding: 1px;
+        height: 20px;
+    }
+    .ui-dialog-content {
+        position: relative;
+        border: 0;
+        padding: .5em 1em;
+        background: none;
+        overflow: auto;
+    }
+    .ui-dialog-buttonpane {
+        text-align: left;
+        border-width: 1px 0 0 0;
+        background-image: none;
+        margin-top: .5em;
+        padding: .3em 1em .5em .4em;
+    }
+    .ui-dialog-buttonpane .ui-dialog-buttonset {
+        float: right;
+    }
+    .ui-dialog-buttonpane button {
+        margin: .5em .4em .5em 0;
+        cursor: pointer;
+    }
+    .ui-resizable-n {
+        height: 2px;
+        top: 0;
+    }
+    .ui-resizable-e {
+        width: 2px;
+        right: 0;
+    }
+    .ui-resizable-s {
+        height: 2px;
+        bottom: 0;
+    }
+    .ui-resizable-w {
+        width: 2px;
+        left: 0;
+    }
+    .ui-resizable-se,
+    .ui-resizable-sw,
+    .ui-resizable-ne,
+    .ui-resizable-nw {
+        width: 7px;
+        height: 7px;
+    }
+    .ui-resizable-se {
+        right: 0;
+        bottom: 0;
+    }
+    .ui-resizable-sw {
+        left: 0;
+        bottom: 0;
+    }
+    .ui-resizable-ne {
+        right: 0;
+        top: 0;
+    }
+    .ui-resizable-nw {
+        left: 0;
+        top: 0;
+    }
+}
+
 .modal-container {
     height: 100%;
     display: flex;
@@ -11,7 +100,8 @@
     }
     .ui-widget-header {
         border: 1px solid #4297d7;
-        background: #5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x;
+        /*background: #5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x;*/
+        background: #5c9ccc;
     }
     >div .ui-dialog-content {
         flex: 1;
@@ -28,6 +118,165 @@
     }
 }
 
+.resizable-component {
+    position: absolute;
+}
+
+.resizable-component>.resizable-r {
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    touch-action: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: e-resize;
+    width: 12px;
+    right: -16px;
+    top: 0;
+    height: 100%;
+}
+
+.resizable-component>.resizable-rb {
+    display: block;
+    position: absolute;
+    touch-action: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: se-resize;
+    width: 12px;
+    height: 12px;
+    right: -6px;
+    bottom: -6px;
+    z-index: 9999;
+}
+
+.resizable-component>.resizable-b {
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    touch-action: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: s-resize;
+    height: 12px;
+    bottom: -6px;
+    width: 100%;
+    left: 0;
+}
+
+.resizable-component>.resizable-lb {
+    display: block;
+    position: absolute;
+    touch-action: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: sw-resize;
+    width: 12px;
+    height: 12px;
+    left: -6px;
+    bottom: -6px;
+    z-index: 9999;
+}
+
+.resizable-component>.resizable-l {
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    touch-action: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: w-resize;
+    width: 12px;
+    left: -6px;
+    height: 100%;
+    top: 0;
+}
+
+.resizable-component>.resizable-lt {
+    display: block;
+    position: absolute;
+    touch-action: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: nw-resize;
+    width: 12px;
+    height: 12px;
+    left: -6px;
+    top: -6px;
+    z-index: 9999;
+}
+
+.resizable-component>.resizable-t {
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    touch-action: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: n-resize;
+    height: 12px;
+    top: -6px;
+    width: 100%;
+    left: 0;
+}
+
+.resizable-component>.resizable-rt {
+    display: block;
+    position: absolute;
+    touch-action: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: ne-resize;
+    width: 12px;
+    height: 12px;
+    right: -6px;
+    top: -6px;
+    z-index: 9999;
+}
+
+.modal-container {
+    height: 100%;
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+.modal-container>div {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.modal-container .ui-widget-header {
+    border: 1px solid #4297d7;
+    // background: #5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x;
+    background-color: #5c9ccc;
+}
+
+.modal-container>div .ui-dialog-content {
+    flex: 1;
+    width: calc(100% - 8px) !important;
+    height: calc(100% - 8px) !important;
+    display: inline;
+}
+
+.modal-container>div .ui-dialog-content>div {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* overflow: scroll; */
+    position: relative;
+}
+
 .modal {
     position: fixed;
     z-index: 9998;
@@ -38,93 +287,98 @@
     background-color: rgba(0, 0, 0, 0.5);
     display: table;
     transition: opacity 0.3s ease;
-    .hidden {
-        display: none!important;
-    }
-    .modal-mask {
-        width: 300px;
-        height: 300px;
-        display: inline-block;
-    }
-    .modal-wrapper {
-        width: 100%;
-        height: 100%;
-        background-color: #ccc;
-        display: inline-block;
-        /* position: fixed; */
-        /* top: 40px; */
-        /* left: 0; */
-        display: inline-block;
-    }
-    .dialog-modal .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-        /*float: left;
-    display: inline-block;*/
-    }
-    .modal-container {
-        /* position: absolute; */
-        /* top:0; */
-        /* left: 0; */
-        /* top: 50%; left: 50%; transform: translate(-50%, -50%); */
-    }
+}
+
+.modal.hidden {
+    display: none!important;
+}
+
+.modal-mask {
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+}
+
+.modal-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    display: inline-block;
+    /* position: fixed; */
+    /* top: 40px; */
+    /* left: 0; */
+    display: inline-block;
+}
+
+.dialog-modal .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    /*float: left;
+  display: inline-block;*/
+}
+
+.modal-container {
+    /* position: absolute; */
+    /* top:0; */
+    /* left: 0; */
+    /* top: 50%; left: 50%; transform: translate(-50%, -50%); */
 }
 
 
 /*
 .modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
+display: table-cell;
+vertical-align: middle;
 }
 
 .modal-container {
-  	width: 600px;
-    margin: 0px auto;
-    padding: 20px 30px;
-    background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-    transition: all 0.3s ease;
-    max-height: 80vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  width: 600px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  max-height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
+margin-top: 0;
+color: #42b983;
 }
 
 .modal-body {
-  margin: 20px 0;
+margin: 20px 0;
 }
 
 .modal .modal-body .form-group {
-    display: inline-block;
-    width: 100%;
-    margin: 1% 0;
+  display: inline-block;
+  width: 100%;
+  margin: 1% 0;
 }
 
 .modal .modal-body .form-group input {
-    display: inline-block;
-    width: 100%;
+  display: inline-block;
+  width: 100%;
 }
 
 .modal .modal-body .form-group span {
-    display: inline-block;
-    width: 100%;
+  display: inline-block;
+  width: 100%;
 }
 
 .modal-default-button {
-  float: right;
+float: right;
 }
 .modal-enter {
-  opacity: 0;
+opacity: 0;
 }
 
 .modal-leave-active {
-  opacity: 0;
+opacity: 0;
 }
 
 .modal-enter .modal-container,
 .modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+-webkit-transform: scale(1.1);
+transform: scale(1.1);
 }*/

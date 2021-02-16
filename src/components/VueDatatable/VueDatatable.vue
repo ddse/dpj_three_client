@@ -124,7 +124,8 @@
             ></slot>
             <template v-else>
               <tr v-for="(row, index) in rows" :key="index">
-                <template v-if="show">
+                
+                <!-- <template v-if="show"> -->
                   <td
                     v-for="(column, index) in columnsTemp[position]"
                     :key="column + index"
@@ -146,28 +147,30 @@
                       <!-- {{renderCell(column, row, index)}} -->
                     </slot>
                   </td>
-                </template>
+                <!-- </template> -->
               </tr>
             </template>
           </tbody>
         </table>
       </div>
     </div>
+    padidng {{this.paging}}
     <paginator
       :total="totalPages"
       :current="currentPage"
       v-on:select="selectPage"
-      v-if="this.paging && show"
+      v-if="this.paging"
     >
     </paginator>
-    <p class="small text-center" v-if="this.paging && show">{{ countText }}</p>
+    <p class="small text-center" v-if="this.paging">{{ countText }}</p>
   </div>
 </template>
 <script>
 import Vue from "vue";
 import Paginator from "./Paginator";
 import Dropdown from "./Dropdown";
-import helper from "./helper";
+import {debounce, _readOnlyError} from "./helper";
+// import debounce from "./debounce"
 export default {
   name: "VueDatatable",
   components: {
@@ -175,7 +178,7 @@ export default {
     dropdown: Dropdown,
   },
   directives: {
-    debounce: helper.debounce,
+    debounce: debounce,
   },
   props: {
     data: {
@@ -263,7 +266,7 @@ export default {
       tableFixWidth: 0,
       // tableFixTheadHeight: 0,
       scrollWidth: 0,
-      show: true,
+      // show: true,
       theadRowMax: 0,
       theadRowleft: 0,
       theadRowright: 0,
@@ -300,7 +303,7 @@ export default {
 
       if (this.rows.length > this.maxRowScroll) {
         style.push({
-          "padding-bottom": this.colHeight + this.scrollbarSize + "px",
+          // "padding-bottom": this.colHeight + this.scrollbarSize + "px",
         });
         style.push({
           "max-height": this.colHeight * this.maxRowScroll - 1 + "px",
@@ -329,9 +332,7 @@ export default {
     filteredData: function filteredData() {
       //localdata=>data
       // this.localdata = [];
-
-      // if (typeof this.data != "array") {
-      if (Array.isArray(this.data)) {
+      if (Object.prototype.toString.call(this.data) === '[Array]') {
         var array = this.data.map(function (value) {
           return [value];
         });
@@ -354,12 +355,12 @@ export default {
           });
         };
 
-        if (this.show)
-          return this.localdata.filter(function (row) {
+        // if (this.show)
+          return this.data.filter(function (row) {
             return rowMatch(row);
           });
       }
-      return [];
+      return this.data;
     },
     filteredAndSortedData: function filteredAndSortedData() {
       var rows = this.filteredData;
@@ -470,7 +471,7 @@ export default {
     },
     scrollTop: {
       handler: function handler(newVal) {
-        helper.debounce(this.updateOtherSyncedScroll(newVal), 0);
+        debounce(this.updateOtherSyncedScroll(newVal), 0);
       },
       deep: true,
     },
@@ -626,6 +627,12 @@ export default {
         allColumns = this.$slots["default"]
           .filter(function (column) {
             var opt = column.componentOptions;
+            if (typeof column.componentOptions === "undefined") {
+              let opt = {};
+              opt.propsData = column.data.attrs;
+              opt.tag = column.tag;
+            }
+            
             if (typeof opt === "undefined") {
               opt = {};
               opt.propsData = column.data.attrs;
@@ -997,7 +1004,7 @@ export default {
           if (that.scrollType == v) {
             var b = that.updateSyncedScroll();
             if (b.scrollTop !== that.scrollTop)
-              helper.debounce(that.updateOtherSyncedScroll(b), 100);
+              debounce(that.updateOtherSyncedScroll(b), 100);
           }
 
           that.scrollType = v;
@@ -1007,7 +1014,7 @@ export default {
   },
   created: function created() {
     if (this.localdata == null) {
-      this.show = false;
+      // this.show = false;
     }
   },
   mounted: function mounted() {
@@ -1035,7 +1042,7 @@ export default {
     var selectPosition = null;
     if (selectionColumnComponents.length > 0)
       selectPosition =
-        (helper._readOnlyError("selectPosition"),
+        (_readOnlyError("selectPosition"),
         selectionColumnComponents[0].propsData.fixed);
     this.columnsTemp = {
       "": [].concat(

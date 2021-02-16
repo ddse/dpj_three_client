@@ -7,12 +7,12 @@
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false"
-      :class="statuts ? 'aaa' : 'vvv'"
-      v-on:click="statuts = !statuts"
+      @click="state = !state"
     >
       {{ current }}
     </button>
-    <div class="dropdown-menu" :aria-labelledby="buttonId" v-if="statuts">
+    {{ this.state }}
+    <div class="dropdown-menu-table" :aria-labelledby="buttonId" v-if="state">
       <a
         class="dropdown-item"
         v-for="item in items"
@@ -25,25 +25,40 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
-  name: "Dropdown",
   props: {
     items: Array,
     current: Number,
   },
-  data: function data() {
+  data() {
     return {
       buttonId: "dropdownMenuButton-" + this._uid,
-      statuts: false,
+      state: false,
     };
   },
   methods: {
-    select: function select(item, event) {
+    select(item, event) {
       event.preventDefault();
-      this.statuts = !this.statuts;
+      this.state = false;
       this.$emit("select", item);
     },
   },
 };
 </script>
+<style lang="scss">
+.dropdown-menu-table {
+  display: block;
+  z-index: 99999;
+  position: absolute;
+  left: 0;
+  border: 1px solid;
+  a {
+    border-bottom: 1px solid;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+</style>

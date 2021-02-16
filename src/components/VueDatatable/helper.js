@@ -206,5 +206,5 @@ export const debounce = (fn /*, delay*/ ) => {
 };
 
 export default {
-
+    debounce
 }

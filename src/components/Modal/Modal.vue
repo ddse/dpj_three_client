@@ -1,47 +1,89 @@
 <template>
-  <div class="modal" :class="hidenPopup?'hidden': ''">
-        <div class="modal-mask resizable resizable-component" :style="style" @keydown.esc="$emit('close')">
-            <div class="modal-wrapper">
-                <div class="modal-container dialog-modal">
-                    <div tabindex="-1" role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-draggable ui-resizable" aria-describedby="modalCompo1" aria-labelledby="ui-id-18" @keydown.esc="$emit('close')">
-                        <div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle " id="ui-dialog-titlebar-modal">
-                            <span id="ui-id-18" class="ui-dialog-title">{{title}}</span>
-                            <button type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close" title="Close" @click="$emit('close')">
-                                <span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span> Close
-                            </button>
-                        </div>
-                        
-                        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style=" border-width: 0 0 1px 0;" v-if="!footerflg">
-                            <div class="ui-dialog-buttonset">
-                                <slot name="footer"> default footer
-                                    <button class="modal-default-button noneEvent" @click="$emit('close')">OK</button>
-                                </slot>
-                            </div>
-                        </div>
-                        <div id="modalCompo1" class="modal ui-dialog-content ui-widget-content" :style="{
-                            width: this.w+'px',
-                            height: this.h+'px',
-                        }">
-                            <slot name="body" :style="{
-                                width: this.w,
-                                height: this.h,
-                            }"> default body </slot>
-                        </div>
-                        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" v-if="footerflg">
-                            <div class="ui-dialog-buttonset">
-                                <slot name="footer"> default footer
-                                    <button class="modal-default-button noneEvent" @click="$emit('close')">OK</button>
-                                </slot>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="modal" :class="hidenPopup ? 'hidden' : ''">
+    <div
+      class="modal-mask resizable resizable-component"
+      :style="style"
+      @keydown.esc="$emit('close')"
+    >
+      <div class="modal-wrapper">
+        <div class="modal-container dialog-modal">
+          <div
+            tabindex="-1"
+            role="dialog"
+            class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-draggable ui-resizable"
+            aria-describedby="modalCompo1"
+            aria-labelledby="ui-id-18"
+            @keydown.esc="$emit('close')"
+          >
+            <div
+              ref="headDialog"
+              class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle"
+              id="ui-dialog-titlebar-modal"
+            >
+              <span id="ui-id-18" class="ui-dialog-title">{{ title }}</span>
+              <button
+                type="button"
+                class="ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close"
+                title="Close"
+                @click="$emit('close')"
+              >
+                <span class="ui-button-icon ui-icon ui-icon-closethick"></span
+                ><span class="ui-button-icon-space"> </span> Close
+              </button>
             </div>
-            <template v-for="el in active">
-                <div v-show="!maximize" :class="'resizable-'+el" :key="el"></div>
-            </template>
+
+            <div
+              class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"
+              v-if="!footerflg"
+            >
+              <div class="ui-dialog-buttonset">
+                <slot name="footer">
+                  default footer
+                  <b-button variant="dark" @click="$emit('close')">
+                    {{ $t("file.close") }}
+                  </b-button>
+                </slot>
+              </div>
+            </div>
+            <div
+              id="modalCompo1"
+              class="modal ui-dialog-content ui-widget-content"
+              :style="{
+                width: this.w + 'px',
+                height: this.h + 'px',
+              }"
+            >
+              <slot
+                name="body"
+                :style="{
+                  width: this.w,
+                  height: this.h,
+                }"
+              >
+                default body
+              </slot>
+            </div>
+            <div
+              class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"
+              v-if="footerflg"
+            >
+              <div class="ui-dialog-buttonset">
+                <slot name="footer">
+                  default footer
+                  <b-button variant="dark" @click="$emit('close')">
+                    {{ $t("file.close") }}
+                  </b-button>
+                </slot>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <template v-for="el in active">
+        <div v-show="!maximize" :class="'resizable-' + el" :key="el"></div>
+      </template>
     </div>
+  </div>
 </template>
 <script>
 export default {
@@ -365,18 +407,25 @@ export default {
       // this.heightBody = '100%'; //this.h - ($(this.that).find('.ui-dialog>div:first-child').innerHeight() + $(this.that).find('.ui-dialog>div:last-child').innerHeight() + parseFloat($(this.that).find('.ui-dialog>div:last-child').css('marginTop')));
       // console.log(($(this.that).find('.ui-dialog>div:first-child').innerHeight() + $(this.that).find('.ui-dialog>div:last-child').innerHeight() + parseFloat($(this.that).find('.ui-dialog>div:last-child').css('marginTop'))));
       // $(this.that).find('.ui-dialog>div:first-child').innerWidth() - (this.that).find('.ui-dialog>div:first-child').outerWidth();
-      this.widthBody =
-        this.w -
-        (parseFloat(
-          $(this.that).find(".ui-dialog>div:first-child").css("padding-right")
-        ) +
-          parseFloat(
-            $(this.that).find(".ui-dialog>div:first-child").css("padding-left")
-          ));
-      this.widthBody =
-        this.widthBody -
-        ($(this.that).innerWidth() -
-          $(this.that).find(".ui-dialog>div:first-child").outerWidth());
+      let paddingRight = this.$refs.headDialog.style["padding-right"];
+      // $(this.that).find(".ui-dialog>div:first-child").css("padding-right")
+      paddingRight =
+        paddingRight == null || paddingRight == ""
+          ? 0
+          : parseFloat(paddingRight);
+      let paddingLeft = this.$refs.headDialog.style["padding-left"];
+      // $(this.that).find(".ui-dialog>div:first-child").css("padding-left")
+      paddingLeft =
+        paddingLeft == null || paddingLeft == "" ? 0 : parseFloat(paddingLeft);
+
+      //(this.that).innerWidth() -
+      // $(this.that).find(".ui-dialog>div:first-child").outerWidth());
+      let offsetWidth = this.$refs.headDialog.offsetWidth;
+
+      let widthBody = this.w - paddingRight + paddingLeft;
+      widthBody = widthBody - (this.$el.offsetWidth - offsetWidth);
+      // this.widthBody = widthBody;
+      return widthBody;
     },
   },
   methods: {

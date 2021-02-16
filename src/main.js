@@ -14,11 +14,13 @@ import App from './App';
 import layoutMixin from './mixins/layout';
 import Widget from './components/Widget/Widget';
 import i18n from './utils/i18n'
+import Modal from './components/Modal/Modal';
 
 Vue.use(BootstrapVue);
 Vue.use(VueTouch);
 Vue.use(Trend);
 Vue.component('Widget', Widget);
+Vue.component('modal', Modal);
 Vue.use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyB7OXmzfQYua_1LEhRdqsoYzyJOPh9hGLg',

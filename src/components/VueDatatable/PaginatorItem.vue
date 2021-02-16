@@ -7,7 +7,15 @@
 </template>
 <script>
 export default {
-    name:"PaginatorItem",
-    
-}
+    props: {
+      active: Boolean,
+      disabled: Boolean,
+    },
+    methods: {
+      click(event) {
+        event.preventDefault();
+        this.$emit('click')
+      }
+    }
+  }
 </script>
