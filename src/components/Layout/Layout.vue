@@ -49,7 +49,7 @@ export default {
     const staticSidebar = JSON.parse(localStorage.getItem('sidebarStatic'));
 
     if (staticSidebar) {
-      this.$store.state.layout.sidebarStatic = true;
+      // this.$store.state.layout.sidebarStatic = true;
     } else if (!this.sidebarClose) {
       setTimeout(() => {
         this.switchSidebar(true);

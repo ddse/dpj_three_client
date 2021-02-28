@@ -1,20 +1,24 @@
 <template>
   <section>
     <div class="container-fluid">
-      <b-button @click="statusPopup = true">
-        <i class="dripicons-plus"></i> {{ $t("file.Add Category") }}
-      </b-button>
-        
-      <button type="button" class="btn btn-info" @click="statusPopup = true">
-        <i class="dripicons-plus"></i> {{ $t("file.Add Category") }}</button
-      >&nbsp;
-      <button
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#importCategory"
+      <vs-button
+        color="rgb(11, 189, 135)"
+        type="border"
+        @click="
+          statusPopup = true;
+          contentPopup = 'create';
+        "
+        >{{ $t("file.Add Category") }}</vs-button
       >
-        <i class="dripicons-copy"></i> {{ $t("file.Import Category") }}
-      </button>
+      <vs-button
+        color="rgb(11, 189, 135)"
+        type="border"
+        @click="
+          statusPopup = true;
+          contentPopup = 'import';
+        "
+        >{{ $t("file.Import Category") }}</vs-button
+      >
     </div>
     <Widget
       title="<h5>Table <span class='fw-semi-bold'>Styles</span></h5>"
@@ -153,37 +157,90 @@
     >
       <h2 slot="header"></h2>
       <div slot="body">
-        <p class="italic">
-          <small
-            >{{
-              $t(
-                "file.The field labels marked with * are required input fields"
-              )
-            }}.</small
+        <vx-card title="Default" code-toggler>
+          <p>
+            You can upload files to the server with the
+            <code>vs-upload</code> component, the requested parameter is
+            <code>action</code> which is the URL of the server
+          </p>
+
+          <vs-alert
+            color="primary"
+            icon="new_releases"
+            active="true"
+            class="mt-5"
           >
-        </p>
-        <div class="row">
-          <div class="col-md-6 form-group">
-            <label>{{ $t("file.name") }} *</label>
-            {--{ Form::text('name',null,array('required' => 'required', 'class'
-            => 'form-control', 'placeholder' => 'Type category name...')) }--}
-          </div>
-          <div class="col-md-6 form-group">
-            <label>{{ $t("file.Image") }}</label>
-            <input type="file" name="image" class="form-control" />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>{{ $t("file.Parent Category") }}</label>
-            {--{Form::select('parent_id', $lims_categories, null, ['class' =>
-            'form-control','placeholder' => 'No Parent Category']) }--}
-          </div>
-        </div>
+            <p>
+              For the title of each tab the <code>vs-label</code> property is
+              implemented in the <code>vs-tab</code> component
+            </p>
+          </vs-alert>
+          <template v-if="contentPopup == 'create'">
+            <div class="default-input d-flex align-items-center">
+              {{
+                $t(
+                  "file.The field labels marked with * are required input fields"
+                )
+              }}
+              <vs-input
+                :label="$t('file.name') "
+                class="inputx"
+                placeholder="Category Name"
+                v-model="name"
+              />
+              <vs-select
+                class="selectExample"
+                :label="$t('file.Parent Category')"
+                v-model="select1"
+              >
+                <vs-select-item
+                  :key="index"
+                  :value="item.value"
+                  :text="item.text"
+                  v-for="(item, index) in lims_categories"
+                />
+              </vs-select>
+            </div>
+            <p class="italic">
+              <small
+                >{{
+                  $t(
+                    "file.The field labels marked with * are required input fields"
+                  )
+                }}.</small
+              >
+            </p>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label>{{ $t("file.name") }} *</label>
+                {--{ Form::text('name',null,array('required' => 'required',
+                'class' => 'form-control', 'placeholder' => 'Type category
+                name...')) }--}
+              </div>
+              <div class="col-md-6 form-group">
+                <label>{{ $t("file.Image") }}</label>
+                <input type="file" name="image" class="form-control" />
+              </div>
+              <div class="col-md-6 form-group">
+                <label>{{ $t("file.Parent Category") }}</label>
+                {--{Form::select('parent_id', $lims_categories, null, ['class'
+                => 'form-control','placeholder' => 'No Parent Category']) }--}
+              </div>
+            </div>
+          </template>
+          <template v-else-if="contentPopup == 'import'">
+            <div class="mt-5">
+              new upload
+              <vs-upload
+                action="https://jsonplaceholder.typicode.com/posts/"
+                @on-success="successUpload"
+              />
+            </div>
+          </template>
+        </vx-card>
       </div>
       <div slot="footer">
-        <b-button
-          variant="info"
-          id="show-info-message"
-          @click="addInfoNotification"
+        <b-button variant="info" id="show-info-message"
           >{{ $t("file.submit") }}
         </b-button>
         <b-button variant="dark" v-on:click="backProcess">
@@ -206,6 +263,7 @@ export default {
   data: () => {
     return {
       statusPopup: false,
+      contentPopup: "create",
       checkboxes1: [false, false, false, false],
       list: null,
       total: 0,
@@ -230,6 +288,13 @@ export default {
     },
     backProcess: function () {
       this.statusPopup = false;
+    },
+    successUpload() {
+      this.$vs.notify({
+        color: "success",
+        title: "Upload Success",
+        text: "Lorem ipsum dolor sit amet, consectetur",
+      });
     },
   },
 };

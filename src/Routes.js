@@ -27,6 +27,9 @@ import NotificationsPage from '@/pages/Notifications/Notifications';
 // import CategoryPage from '@/pages/Category/Category';
 import CategoriesPage from '@/pages/Categories/Categories';
 
+import ProductPage from '@/pages/Products/Product';
+import ProductPageDetail from '@/pages/Products/ProductDetail';
+
 Vue.use(Router);
 
 export default new Router({
@@ -84,6 +87,16 @@ export default new Router({
                     name: 'Category',
                     component: CategoriesPage,
                 },
+                {
+                    path: 'product',
+                    name: 'Product',
+                    component: ProductPage,
+                },
+                {
+                    path: 'product-detail',
+                    name: 'ProductDetail',
+                    component: ProductPageDetail,
+                }
             ],
         },
     ],

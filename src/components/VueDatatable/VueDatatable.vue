@@ -26,23 +26,35 @@
       </div>
     </div>
     <div
+        v-if="search"
+        class="con-input-search vs-table--search">
+        <input
+          v-model="searchx"
+          class="input-search vs-table--search-input"
+          type="text">
+        <vs-icon icon="search"></vs-icon>
+      </div>
+    <div
       class="tablewrapper"
-      :class="!scrollVertical && !scrollHorizontal ? '' : 'tablewrapperscroll'"
+      :class="
+        !d_scrollVertical && !d_scrollHorizontal ? '' : 'tablewrapperscroll'
+      "
     >
       <div
         v-for="(position, index) in positionTable"
         :key="index"
         :class="position == '' ? 'normal' : 'table' + position"
+        class="table-responsive"
       >
         <table
-          class="table table-striped"
+          class="table table-striped table-lg mb-0 requests-table"
           :ref="'table' + position"
           :class="
-            !scrollVertical && !scrollHorizontal
+            !d_scrollVertical && !d_scrollHorizontal
               ? {}
               : {
-                  scrolly: 'scrollVertical',
-                  scrollx: 'scrollHorizontal',
+                  scrolly: 'd_scrollVertical',
+                  scrollx: 'd_scrollHorizontal',
                   scrolling: 'scrolling',
                 }
           "
@@ -124,29 +136,28 @@
             ></slot>
             <template v-else>
               <tr v-for="(row, index) in rows" :key="index">
-                
                 <!-- <template v-if="show"> -->
-                  <td
-                    v-for="(column, index) in columnsTemp[position]"
-                    :key="column + index"
-                    :class="column.propsData.prop"
-                    :style="tcellStyle(column)"
-                    :tooltip="
-                      column.propsData.tooltip ? row[column.propsData.prop] : ''
-                    "
+                <td
+                  v-for="(column, index) in columnsTemp[position]"
+                  :key="column + index"
+                  :class="column.propsData.prop"
+                  :style="tcellStyle(column)"
+                  :tooltip="
+                    column.propsData.tooltip ? row[column.propsData.prop] : ''
+                  "
+                >
+                  <slot
+                    :name="column.propsData.prop"
+                    :value="row[column.propsData.prop]"
+                    :row="row"
+                    :column="column.propsData.prop"
                   >
-                    <slot
-                      :name="column.propsData.prop"
-                      :value="row[column.propsData.prop]"
-                      :row="row"
-                      :column="column.propsData.prop"
-                    >
-                      {{ renderCell(column, row, index) }}
+                    {{ renderCell(column, row, index) }}
 
-                      <!-- {{ typeof column.propsData.renderCell != 'function' ? renderCell(column, row, index) : ''}} -->
-                      <!-- {{renderCell(column, row, index)}} -->
-                    </slot>
-                  </td>
+                    <!-- {{ typeof column.propsData.renderCell != 'function' ? renderCell(column, row, index) : ''}} -->
+                    <!-- {{renderCell(column, row, index)}} -->
+                  </slot>
+                </td>
                 <!-- </template> -->
               </tr>
             </template>
@@ -154,7 +165,6 @@
         </table>
       </div>
     </div>
-    padidng {{this.paging}}
     <paginator
       :total="totalPages"
       :current="currentPage"
@@ -169,7 +179,7 @@
 import Vue from "vue";
 import Paginator from "./Paginator";
 import Dropdown from "./Dropdown";
-import {debounce, _readOnlyError} from "./helper";
+import { debounce, _readOnlyError } from "./helper";
 // import debounce from "./debounce"
 export default {
   name: "VueDatatable",
@@ -272,6 +282,9 @@ export default {
       theadRowright: 0,
       theadRow: 0,
       slottheader: false,
+      d_scrollHorizontal: this.scrollHorizontal,
+      d_scrollVertical: this.scrollVertical,
+      searchx:"",
     };
   },
   computed: {
@@ -291,7 +304,7 @@ export default {
       return result;
     },
     tbodyStyle: function tbodyStyle() {
-      if (!this.scrollHorizontal) {
+      if (!this.d_scrollHorizontal) {
         return [];
       }
 
@@ -316,12 +329,12 @@ export default {
       return style;
     },
     theadStyle: function theadStyle() {
-      if (!this.scrollHorizontal) {
+      if (!this.d_scrollHorizontal) {
         return [];
       }
 
       var style = [];
-      if (this.position == "" && this.syncHeaderScroll && this.scrollVertical)
+      if (this.position == "" && this.syncHeaderScroll && this.d_scrollVertical)
         style.push(this.stubScrollbarStyle);
       if (this.rows.length > this.maxRowScroll)
         style.push({
@@ -332,7 +345,7 @@ export default {
     filteredData: function filteredData() {
       //localdata=>data
       // this.localdata = [];
-      if (Object.prototype.toString.call(this.data) === '[Array]') {
+      if (Object.prototype.toString.call(this.data) === "[Array]") {
         var array = this.data.map(function (value) {
           return [value];
         });
@@ -356,9 +369,9 @@ export default {
         };
 
         // if (this.show)
-          return this.data.filter(function (row) {
-            return rowMatch(row);
-          });
+        return this.data.filter(function (row) {
+          return rowMatch(row);
+        });
       }
       return this.data;
     },
@@ -632,7 +645,7 @@ export default {
               opt.propsData = column.data.attrs;
               opt.tag = column.tag;
             }
-            
+
             if (typeof opt === "undefined") {
               opt = {};
               opt.propsData = column.data.attrs;
@@ -930,7 +943,7 @@ export default {
       var b = this.$refs[v][0];
       var l = b.scrollLeft;
 
-      if (this.scrollHorizontal) {
+      if (this.d_scrollHorizontal) {
         if (this.syncHeaderScroll) {
           var h = this.$refs["thead" + position][0];
 
@@ -1013,12 +1026,18 @@ export default {
     });
   },
   created: function created() {
+    if (this.paging) {
+      this.d_scrollHorizontal = false;
+      this.d_scrollVertical = false;
+      this.positionTable= [""];
+    }
     if (this.localdata == null) {
       // this.show = false;
     }
   },
   mounted: function mounted() {
     this.self = this;
+
     this.setColors();
     this.containerWidth = this.$el.clientWidth;
     this.containerHeight = this.$el.clientHeight;

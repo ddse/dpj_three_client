@@ -8,13 +8,15 @@ import Trend from 'vuetrend';
 import Toasted from 'vue-toasted';
 import VueApexCharts from 'vue-apexcharts';
 
-import store from './store';
+import store from './store/store';
 import router from './Routes';
 import App from './App';
 import layoutMixin from './mixins/layout';
 import Widget from './components/Widget/Widget';
 import i18n from './utils/i18n'
 import Modal from './components/Modal/Modal';
+// mock
+import "./fake-db/index"
 
 Vue.use(BootstrapVue);
 Vue.use(VueTouch);
