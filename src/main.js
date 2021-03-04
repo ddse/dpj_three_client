@@ -33,7 +33,32 @@ Vue.mixin(layoutMixin);
 Vue.use(Toasted, { duration: 10000 });
 
 Vue.config.productionTip = false;
+// ################## FORM GENERAL#####################################
+const component = require("@/components/FormGenerator/FormGenrator.vue").default;
+const schema = require("@/components/FormGenerator/utils/schema.js");
+const validators = require("@/components/FormGenerator/utils/validators.js").default;
+const fieldComponents = require("@/components/FormGenerator/utils/fieldsLoader").default;
+const abstractField = require("@/components/FormGenerator/fields/abstractField").default;
+const install = (Vue, options) => {
+    Vue.component("VueFormGenerator", module.exports.component);
+    if (options && options.validators) {
+        for (let key in options.validators) {
+            if ({}.hasOwnProperty.call(options.validators, key)) {
+                validators[key] = options.validators[key];
+            }
+        }
+    }
+};
 
+module.import = {
+    component,
+    schema,
+    validators,
+    abstractField,
+    fieldComponents,
+    install
+};
+// ################## FORM GENERAL#####################################
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

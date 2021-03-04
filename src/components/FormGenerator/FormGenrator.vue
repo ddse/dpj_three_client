@@ -1,42 +1,45 @@
-<template lang="pug">
-.vue-form-generator(v-if="schema != null")
-  fieldset(v-if="schema.fields", :is="tag")
-    template(v-for="field in fields")
-      form-group(
-        v-if="fieldVisible(field)",
-        :vfg="vfg",
-        :field="field",
-        :errors="errors",
-        :model="model",
-        :options="options",
-        @validated="onFieldValidated",
-        @model-updated="onModelUpdated"
-      )
-
-  template(v-for="group in groups")
-    fieldset(:is="tag", :class="getFieldRowClasses(group)")
-      legend(v-if="group.legend") {{ group.legend }}
-      template(v-for="field in group.fields")
-        form-group(
-          v-if="fieldVisible(field)",
-          :vfg="vfg",
-          :field="field",
-          :errors="errors",
-          :model="model",
-          :options="options",
-          @validated="onFieldValidated",
-          @model-updated="onModelUpdated"
-        )
+<template>
+  <div class="vue-form-generator" v-if="schema != null">
+    <fieldset v-if="schema.fields" :is="tag">
+      <template v-for="(key, field) in fields">
+        <form-group
+          v-if="fieldVisible(field)"
+          :vfg="vfg"
+          :field="field"
+          :errors="errors"
+          :key="key"
+        ></form-group>
+      </template>
+    </fieldset>
+    <!-- <template v-for="(key,group) in groups">
+      <fieldset :is="tag" :class="getFieldRowClasses(group)" :key="key">
+        <legend v-if="group.legend">{{ group.legend }}</legend>
+        <template v-for="(kF, field) in group.fields">
+          <form-group
+            v-if="fieldVisible(field)"
+            :vfg="vfg"
+            :field="field"
+            :errors="errors"
+            :model="model"
+            :options="options"
+            @validated="onFieldValidated"
+            @model-updated="onModelUpdated"
+            :key="kF"
+          ></form-group>
+        </template>
+      </fieldset>
+    </template> -->
+  </div>
 </template>
 
 <script>
 import { get as objGet, forEach, isFunction, isNil, isArray } from "lodash";
-import formMixin from "./formMixin.js";
-import formGroup from "./formGroup.vue";
+// import formMixin from "./utils/formMixin.js";
+// import formGroup from "./formGroup.vue";
 export default {
   name: "formGenerator",
-  components: { formGroup },
-  mixins: [formMixin],
+  // components: { formGroup },
+  // mixins: [formMixin],
   props: {
     schema: Object,
     model: Object,
@@ -124,9 +127,9 @@ export default {
           this.options.validateAfterLoad === true &&
           this.isNewModel !== true
         ) {
-          this.validate();
+          // this.validate();
         } else {
-          this.clearValidationErrors();
+          // this.clearValidationErrors();
         }
       }
     });

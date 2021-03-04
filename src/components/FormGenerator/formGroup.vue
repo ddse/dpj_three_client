@@ -25,7 +25,7 @@
 <script>
 import { get as objGet, isNil, isFunction } from "lodash";
 import { slugifyFormID } from "./utils/schema";
-import formMixin from "./formMixin.js";
+import formMixin from "./utils/formMixin.js";
 import fieldComponents from "./utils/fieldsLoader.js";
 export default {
 	name: "form-group",

@@ -5,7 +5,13 @@
     settings
     close
   >
-  <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+  {{schema}}
+    <vue-form-generator
+      :schema="schema"
+      :model="model"
+      :options="formOptions"
+    ></vue-form-generator>
+    <div>
     <div class="vx-row mb-6">
       <div class="vx-col sm:w-1/3 w-full">
         <span>{{ $t("file.Type") }}</span>
@@ -127,23 +133,89 @@
         >
       </div>
     </div>
+    </div>
   </Widget>
 </template>
 <script>
-import VueDatatable from "@/components/VueDatatable/VueDatatable";
+// import VueDatatable from "@/components/VueDatatable/VueDatatable";
 import { productData } from "./mock";
-import VueFormGenerator from '@/components/FormGenerator/FormGenrator.vue'
+import VueFormGenerator from "@/components/FormGenerator/FormGenrator.vue";
 // import Resource from "@/api/resource";
 // const categoryResource = new Resource("category");
 export default {
   name: "ProductDetail",
   components: {
-    VueDatatable,
-    VueFormGenerator
+    // VueDatatable,
+    VueFormGenerator,
   },
   data: () => {
     return {
-      
+      input1:"aaa",
+      input2:"bbb",
+      model: {
+        id: 1,
+        name: "John Doe",
+        password: "J0hnD03!x4",
+        skills: ["Javascript", "VueJS"],
+        email: "john.doe@gmail.com",
+        status: true,
+      },
+
+      schema: {
+        fields: [
+          {
+            type: "input",
+            inputType: "text",
+            label: "ID (disabled text field)",
+            model: "id",
+            readonly: true,
+            disabled: true,
+          },
+          {
+            type: "input",
+            inputType: "text",
+            label: "Name",
+            model: "name",
+            placeholder: "Your name",
+            featured: true,
+            required: true,
+          },
+          {
+            type: "input",
+            inputType: "password",
+            label: "Password",
+            model: "password",
+            min: 6,
+            required: true,
+            hint: "Minimum 6 characters",
+            // validator: VueFormGenerator.validators.string,
+          },
+          {
+            type: "select",
+            label: "Skills",
+            model: "skills",
+            values: ["Javascript", "VueJS", "CSS3", "HTML5"],
+          },
+          {
+            type: "input",
+            inputType: "email",
+            label: "E-mail",
+            model: "email",
+            placeholder: "User's e-mail address",
+          },
+          {
+            type: "checkbox",
+            label: "Status",
+            model: "status",
+            default: true,
+          },
+        ],
+      },
+
+      formOptions: {
+        validateAfterLoad: true,
+        validateAfterChanged: true,
+      },
     };
   },
   computed: {},
