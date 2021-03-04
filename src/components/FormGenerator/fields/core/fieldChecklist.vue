@@ -7,7 +7,7 @@
     >
       <div
         class="list-row"
-        v-for="(key, item) in items"
+        v-for="(item, key) in items"
         :class="{ 'is-checked': isItemChecked(item) }"
         :key="key"
       >
@@ -40,7 +40,7 @@
       <div class="dropList">
         <div
           class="list-row"
-          v-for="(key, item) in items"
+          v-for="(item, key) in items"
           :class="{ 'is-checked': isItemChecked(item) }"
           :key="key"
         >

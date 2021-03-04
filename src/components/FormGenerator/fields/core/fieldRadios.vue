@@ -1,7 +1,7 @@
 <template>
   <div class="radio-list" :disabled="disabled" v-attributes="'wrapper'">
     <label
-      v-for="(key, item) in items"
+      v-for="(item, key)  in items"
       :class="getItemCssClasses(item)"
       v-attributes="'label'"
       :key="key"

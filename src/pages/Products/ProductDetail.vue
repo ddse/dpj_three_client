@@ -5,7 +5,6 @@
     settings
     close
   >
-  {{schema}}
     <vue-form-generator
       :schema="schema"
       :model="model"

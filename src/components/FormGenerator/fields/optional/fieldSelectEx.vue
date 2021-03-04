@@ -1,7 +1,7 @@
 <template>
 	<select class="selectpicker" v-model="value" :disabled="disabled" :multiple="schema.multiSelect" :title="schema.placeholder" data-width="100%" :name="schema.inputName">
     <option :disabled="schema.required" v-if="schema.multiSelect !== true" :value="null" :selected="value == undefined"></option>
-    <option v-for="(key,item) in items" :value="getItemValue(item)" :key="key">{{ getItemName(item) }}</option>
+    <option v-for="(item, key)  in items" :value="getItemValue(item)" :key="key">{{ getItemName(item) }}</option>
 </select>
 </template>
 

@@ -15,23 +15,18 @@
     >
       {{ selectOptions.noneSelectedText || "&lt;Nothing selected&gt;" }}
     </option>
-
-    <optgroup
-      v-for="(key, item) in items"
-      :key="key"
-      :label="getGroupName(item)"
-    >
-      <template v-if="item.group">
-        <template v-for="(k, i) in item.ops">
+    <template v-for="(item, key) in items">
+      <optgroup v-if="item.group" :label="getGroupName(item)" :key="key">
+        <template v-for="(i, k) in item.ops">
           <option v-if="item.ops" :value="getItemValue(i)" :key="k">
             {{ getItemName(i) }}
           </option>
         </template>
-      </template>
-    </optgroup>
-    <option v-if="!item.group" :value="getItemValue(item)">
-      {{ getItemName(item) }}
-    </option>
+      </optgroup>
+      <option v-if="!item.group" :value="getItemValue(item)" :key="key">
+        {{ getItemName(item) }}
+      </option>
+    </template>
   </select>
 </template>
 
@@ -51,7 +46,9 @@ export default {
       let values = this.schema.values;
       if (typeof values == "function") {
         return this.groupValues(values.apply(this, [this.model, this.schema]));
-      } else return this.groupValues(values);
+      } else {
+        return this.groupValues(values);
+      }
     },
   },
 
@@ -115,6 +112,7 @@ export default {
     },
 
     getGroupName(item) {
+      console.log(item);
       if (item && item.group) {
         return item.group;
       }
