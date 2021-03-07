@@ -30,6 +30,8 @@ import CategoriesPage from '@/pages/Categories/Categories';
 import ProductPage from '@/pages/Products/Product';
 import ProductPageDetail from '@/pages/Products/ProductDetail';
 
+import PurchasePage from '@/pages/Purchases/Purchase';
+
 Vue.use(Router);
 
 export default new Router({
@@ -96,7 +98,12 @@ export default new Router({
                     path: 'product-detail',
                     name: 'ProductDetail',
                     component: ProductPageDetail,
-                }
+                },
+                {
+                    path: 'purchase',
+                    name: 'Purchase',
+                    component: PurchasePage,
+                },
             ],
         },
     ],

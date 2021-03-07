@@ -1,18 +1,17 @@
 <template>
   <div class="wrapper" v-attributes="'wrapper'">
-    <input
-      class="form-control"
+    <vs-upload
       :id="getFieldID(schema)"
       type="file"
       :name="schema.inputName"
       @change="onChange"
+       @on-success="onSuccess"
       :accept="schema.accept"
       :multiple="schema.multiple"
-      :placeholder="schema.placeholder"
       :readonly="schema.readonly"
       :required="schema.required"
-      :disabled="disabled"
-      v-attributes="'input'"
+      
+      :action="schema.action" 
     />
   </div>
 </template>
@@ -28,6 +27,12 @@ export default {
       if (isFunction(this.schema.onChanged)) {
         // Schema has defined onChange method.
         this.schema.onChanged.call(this, this.model, this.schema, $event, this);
+      }
+    },
+    onSuccess($event) {
+      if (isFunction(this.schema.onSuccess)) {
+        // Schema has defined onChange method.
+        this.schema.onSuccess.call(this, this.model, this.schema, $event, this);
       }
     },
   },

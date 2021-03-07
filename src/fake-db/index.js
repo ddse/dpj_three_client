@@ -4,6 +4,7 @@ import mock from './mock'
 // import "./data/card/index.js"
 // import "./data/table/index.js"
 import "./data/data-list/index"
+import "./data/purchase/index"
 // import "./data/user-management/index.js"
 // import "./data/user/index.js"
 

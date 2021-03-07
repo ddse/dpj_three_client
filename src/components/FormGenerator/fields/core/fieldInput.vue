@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper" v-attributes="'wrapper'">
-    <input
-      class="form-control"
+    <vs-input
       :id="getFieldID(schema)"
       :type="inputType"
       :value="value"

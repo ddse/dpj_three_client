@@ -1,55 +1,43 @@
 <template>
-  <vs-select
-    autocomplete
-    @input-change="onChange"
-    :label="label"
+
+  <select
+    class="form-control"
     v-model="value"
     :disabled="disabled"
     :name="schema.inputName"
     :id="getFieldID(schema)"
     :class="schema.fieldClasses"
     v-attributes="'input'"
-    :multiple="multiple"
   >
-    <vs-select-item
+    <option
       v-if="!selectOptions.hideNoneSelectedText"
       :disabled="schema.required"
       :value="null"
-      :text="selectOptions.noneSelectedText || '&lt;Nothing selected&gt;'"
     >
-    </vs-select-item>
-    <vs-select-item
-      :key="index"
-      :value="getItemValue(item)"
-      :text="getItemName(item)"
-      v-for="(item, index) in items"
-    />
-  </vs-select>
+      {{ selectOptions.noneSelectedText || "&lt;Nothing selected&gt;" }}
+    </option>
+    <template v-for="(item, key) in items">
+      <optgroup v-if="item.group" :label="getGroupName(item)" :key="key">
+        <template v-for="(i, k) in item.ops">
+          <option v-if="item.ops" :value="getItemValue(i)" :key="k">
+            {{ getItemName(i) }}
+          </option>
+        </template>
+      </optgroup>
+      <option v-if="!item.group" :value="getItemValue(item)" :key="key">
+        {{ getItemName(item) }}
+      </option>
+    </template>
+  </select>
 </template>
 
 <script>
-import { isObject, isNil, find, isFunction } from "lodash";
+import { isObject, isNil, find } from "lodash";
 import abstractField from "../abstractField";
 
 export default {
   mixins: [abstractField],
-  props: {
-    vfg: {},
-    model: {
-      type: Object,
-    },
-    schema: {
-      type: Object,
-    },
-    formOptions: {
-      type: Object,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    //
-  },
+
   computed: {
     selectOptions() {
       return this.schema.selectOptions || {};
@@ -66,12 +54,6 @@ export default {
   },
 
   methods: {
-    onChange($event) {
-       if (isFunction(this.schema.inputChanged)) {
-        // Schema has defined onChange method.
-        this.schema.inputChanged.call(this, this.model, this.schema, $event, this);
-      }
-    },
     formatValueToField(value) {
       if (isNil(value)) {
         return null;

@@ -18,6 +18,19 @@ import Modal from './components/Modal/Modal';
 // mock
 import "./fake-db/index"
 
+// vuesax
+const colors = {
+    primary: '#7367F0',
+    success: '#28C76F',
+    danger: '#EA5455',
+    warning: '#FF9F43',
+    dark: '#1E1E1E'
+}
+import Vuesax from 'vuesax'
+import 'vuesax/dist/vuesax.css' //Vuesax styles
+import 'material-icons/iconfont/material-icons.css';
+Vue.use(Vuesax, { theme: { colors }, rtl: false })
+
 Vue.use(BootstrapVue);
 Vue.use(VueTouch);
 Vue.use(Trend);

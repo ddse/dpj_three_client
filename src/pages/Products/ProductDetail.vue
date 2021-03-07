@@ -5,138 +5,41 @@
     settings
     close
   >
-    <vue-form-generator
-      :schema="schema"
-      :model="model"
-      :options="formOptions"
-    ></vue-form-generator>
-    <div>
-    <div class="vx-row mb-6">
-      <div class="vx-col sm:w-1/3 w-full">
-        <span>{{ $t("file.Type") }}</span>
-      </div>
-      <div class="vx-col sm:w-2/3 w-full">
-        <vs-input class="w-full" v-model="input1" />
-        <span>standard</span>
-      </div>
-    </div>
-    <div class="vx-row mb-6">
-      <div class="vx-col sm:w-1/3 w-full">
-        <span>{{ $t("file.Product Name") }}</span>
-      </div>
-      <div class="vx-col sm:w-2/3 w-full">
-        <vs-input class="w-full" type="email" v-model="input2" />
-        <span>Earphone</span>
-      </div>
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Code") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span>85415108</span></vs-input
-      >
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Brand") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span>samsung</span></vs-input
-      >
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Category") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span>electronics</span></vs-input
-      >
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Quantity") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span>163</span></vs-input
-      >
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Unit") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span>Piece</span></vs-input
-      >
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Cost") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span>200</span></vs-input
-      >
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Price") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span>250</span></vs-input
-      >
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Tax") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span>N/A</span></vs-input
-      >
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Tax Method") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span>Exclusive</span></vs-input
-      >
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Alert Quantity") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span>2</span></vs-input
-      >
-    </div>
-    <div class="vx-col sm:w-1/3 w-full">
-      <span>{{ $t("file.Product Details") }}</span>
-    </div>
-    <div class="vx-col sm:w-2/3 w-full">
-      <vs-input class="w-full" type="email" v-model="input2"
-        ><span></span
-      ></vs-input>
-    </div>
-    <div class="vx-row">
-      <div class="vx-col sm:w-2/3 w-full ml-auto">
-        <vs-button class="mr-3 mb-2">Submit</vs-button>
-        <vs-button
-          color="warning"
-          type="border"
-          class="mb-2"
-          @click="
-            input1 = input2 = input3 = input4 = input4 = '';
-            check1 = false;
-          "
-          >Reset</vs-button
-        >
-      </div>
-    </div>
-    </div>
+    <vs-row>
+      <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="4">
+        <vue-form-generator
+          :schema="schema_1"
+          :model="model"
+          :options="formOptions"
+        ></vue-form-generator>
+      </vs-col>
+      <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="4">
+        <vue-form-generator
+          :schema="schema_2"
+          :model="model"
+          :options="formOptions"
+        ></vue-form-generator>
+      </vs-col>
+      <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="4">
+        <vue-form-generator
+          :schema="schema_3"
+          :model="model"
+          :options="formOptions"
+        ></vue-form-generator>
+      </vs-col>
+    </vs-row>
+    <vs-row>
+      <vs-col vs-type="flex">
+        <vue-form-generator
+          :schema="schema_4"
+          :model="model"
+          :options="formOptions"
+        ></vue-form-generator>
+      </vs-col>
+    </vs-row>
   </Widget>
 </template>
 <script>
-// import VueDatatable from "@/components/VueDatatable/VueDatatable";
 import { productData } from "./mock";
 import VueFormGenerator from "@/components/FormGenerator/FormGenrator.vue";
 // import Resource from "@/api/resource";
@@ -147,79 +50,199 @@ export default {
     // VueDatatable,
     VueFormGenerator,
   },
-  data: () => {
-    return {
-      input1:"aaa",
-      input2:"bbb",
-      model: {
-        id: 1,
-        name: "John Doe",
-        password: "J0hnD03!x4",
-        skills: ["Javascript", "VueJS"],
-        email: "john.doe@gmail.com",
-        status: true,
+  data: (vm) => ({
+    model: {
+      id: 1,
+      name: "John Doe",
+      password: "J0hnD03!x4",
+      barcode_type: "code128",
+      skills: ["Javascript", "VueJS"],
+      email: "john.doe@gmail.com",
+      status: true,
+      product_unit: "",
+    },
+    schema_1: {
+      fields: [
+        {
+          type: "select",
+          label: vm.$t("file.Product Type"),
+          model: "product_type",
+          values: [
+            { id: "standard", name: "Standard" },
+            { id: "combo", name: "Combo" },
+            { id: "digital", name: "Digital" },
+          ],
+          noneSelectedText: "Selecting",
+        },
+        {
+          type: "select",
+          label: vm.$t("file.Barcode Type"),
+          model: "barcode_type",
+          values: [
+            { id: "code128", name: "Code 128" },
+            { id: "combo", name: "Code 39" },
+            { id: "digital", name: "UPC-A" },
+            { id: "digital", name: "UPC-E" },
+            { id: "digital", name: "EAN-8" },
+            { id: "digital", name: "EAN-13" },
+          ],
+          readonly: true,
+          disabled: true,
+        },
+        {
+          type: "select",
+          label: vm.$t("file.Product Unit"),
+          model: "product_unit",
+          values: [
+            { id: "code128", name: "Code 128" },
+            { id: "combo", name: "Code 39" },
+            { id: "digital", name: "UPC-A" },
+            { id: "digital", name: "UPC-E" },
+            { id: "digital", name: "EAN-8" },
+            { id: "digital", name: "EAN-13" },
+          ],
+        },
+        {
+          type: "input",
+          inputType: "text",
+          label: vm.$t("file.Product Cost"),
+          model: "product_cost",
+        },
+        {
+          type: "select",
+          label: vm.$t("file.Product Tax"),
+          model: "product_tax",
+          values: [
+            { id: "vat10", name: "VAT 10" },
+            { id: "vat15", name: "VAT 15" },
+            { id: "vat20", name: "VAT 20" },
+          ],
+        },
+      ],
+      selectOptions: {
+        noneSelectedText: "Selecting",
       },
-
-      schema: {
-        fields: [
-          {
-            type: "input",
-            inputType: "text",
-            label: "ID (disabled text field)",
-            model: "id",
-            readonly: true,
-            disabled: true,
-          },
-          {
-            type: "input",
-            inputType: "text",
-            label: "Name",
-            model: "name",
-            placeholder: "Your name",
-            featured: true,
-            required: true,
-          },
-          {
-            type: "input",
-            inputType: "password",
-            label: "Password",
-            model: "password",
-            min: 6,
-            required: true,
-            hint: "Minimum 6 characters",
-            // validator: VueFormGenerator.validators.string,
-          },
-          {
-            type: "select",
-            label: "Skills",
-            model: "skills",
-            values: ["Javascript", "VueJS", "CSS3", "HTML5"],
-          },
-          {
-            type: "input",
-            inputType: "email",
-            label: "E-mail",
-            model: "email",
-            placeholder: "User's e-mail address",
-          },
-          {
-            type: "checkbox",
-            label: "Status",
-            model: "status",
-            default: true,
-          },
-        ],
+    },
+    schema_2: {
+      fields: [
+        {
+          type: "input",
+          inputType: "text",
+          label: vm.$t("file.Product Name"),
+          model: "product_name",
+        },
+        {
+          type: "select",
+          label: vm.$t("file.Brand"),
+          model: "brand",
+          values: [
+            { id: "hp", name: "HP" },
+            { id: "samsung", name: "Samsung" },
+          ],
+        },
+        {
+          type: "select",
+          label: vm.$t("file.Sale Unit"),
+          model: "product_sale_unit",
+          values: [{ id: "meter", name: "Meter" }],
+        },
+        {
+          type: "input",
+          inputType: "number",
+          label: vm.$t("file.Product Price"),
+          model: "product_price",
+        },
+        {
+          type: "select",
+          label: vm.$t("file.Tax Method"),
+          model: "product_tax_method",
+          values: [
+            { id: "include", name: vm.$t("file.Include") },
+            { id: "excluse", name: vm.$t("file.Exclude") },
+          ],
+        },
+      ],
+      selectOptions: {
+        noneSelectedText: "Selecting",
       },
-
-      formOptions: {
-        validateAfterLoad: true,
-        validateAfterChanged: true,
+    },
+    schema_3: {
+      fields: [
+        {
+          type: "input",
+          inputType: "text",
+          label: vm.$t("file.Product Code"),
+          model: "product_code",
+          required: true,
+        },
+        {
+          type: "select",
+          label: vm.$t("file.Product Category"),
+          model: "product_category",
+          values: [
+            { id: "code128", name: "toy" },
+            { id: "combo", name: "Child" },
+          ],
+        },
+        {
+          type: "select",
+          label: vm.$t("file.Purchase Unit"),
+          model: "product_unit",
+          values: [{ id: "vat10", name: "meter" }],
+        },
+        {
+          type: "input",
+          inputType: "text",
+          label: vm.$t("file.Alert Quantity"),
+          model: "product_alert_quantiy",
+          placeholder: "Your name",
+          featured: true,
+          required: true,
+        },
+        {
+          type: "checkbox",
+          label: vm.$t("file.Featured"),
+          model: "product_Featured",
+          featured: true,
+          required: true,
+        },
+      ],
+      selectOptions: {
+        noneSelectedText: "Selecting",
       },
-    };
-  },
+    },
+    schema_4: {
+      fields: [
+        {
+          type: "upload",
+          label: vm.$t("file.Product Image"),
+          model: "product_image",
+          action: "https://jsonplaceholder.typicode.com/posts/",
+          disabled: false,
+          readonly: false,
+        },
+        {
+          type: "editor",
+          label: vm.$t("file.Product Description"),
+          model: "product_description",
+          disabled: false,
+          readonly: false,
+        },
+      ],
+    },
+    formOptions: {
+      validateAfterLoad: true,
+      validateAfterChanged: true,
+    },
+  }),
   computed: {},
   created() {
     this.getList();
+  },
+  watch: {
+    "model.product_unit": (n, c) => {
+      console.log(n + "<========" + c);
+    },
   },
   methods: {
     async getList() {
